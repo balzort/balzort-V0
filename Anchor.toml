@@ -1,0 +1,19 @@
+[toolchain]
+package_manager = "yarn"
+
+[features]
+resolution = true
+skip-lint = false
+
+[programs.devnet]
+balzort = "7F8bQvi3ppn4i7APswRX23hUFuq41dtkguy8aWLLtic8"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "https://api.devnet.solana.com"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 \"tests/**/*.ts\""

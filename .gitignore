@@ -1,0 +1,44 @@
+# ── Unity generated ────────────────────────────────────────────
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+*.pidb.meta
+*.pdb
+*.mdb
+
+# ── Unity auto-generated editor helpers ───────────────────────
+*.unityproj
+UIElementsSchema/
+
+# ── Visual Studio / Rider ──────────────────────────────────────
+.vs/
+.idea/
+*.csproj
+*.sln
+*.suo
+*.user
+*.userprefs
+
+# ── OS files ───────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Unity crash reports ────────────────────────────────────────
+crashlytics-build.properties
+
+# ── Rust / Anchor (Solana program) ────────────────────────────
+.anchor
+.bolt
+target
+**/*.rs.bk
+node_modules
+test-ledger
+.yarn
+tests/wallets
+backend
+frontend
+BallSort-Unity
