@@ -27,8 +27,8 @@ import * as nacl from "tweetnacl";
 
 const SEED_GAME = "game";
 const SEED_PLAYER = "player";
-const TEE_URL = "https://devnet-tee.magicblock.app";
-const TEE_WS_URL = "wss://devnet-tee.magicblock.app";
+const TEE_URL = "https://tee.magicblock.app";
+const TEE_WS_URL = "wss://tee.magicblock.app";
 const ephemeralRpcEndpoint = TEE_URL;
 const DEVNET_URL = "https://api.devnet.solana.com";
 
