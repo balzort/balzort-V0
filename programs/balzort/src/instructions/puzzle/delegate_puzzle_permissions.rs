@@ -20,51 +20,49 @@ pub struct DelegatePuzzlePermissions<'info> {
     #[account(seeds=[SEED_GAME], bump=game.bump)]
     pub game: Account<'info, Game>,
 
-    /// CHECK: The PuzzleBoard we want to protect
+    /// CHECK: PuzzleBoard
     #[account(mut)]
     pub puzzle_board: UncheckedAccount<'info>,
 
-    /// CHECK: The PuzzleStats we want to protect 
+    /// CHECK: PuzzleStats
     #[account(mut)]
     pub puzzle_stats: UncheckedAccount<'info>,
 
-    /// CHECK: Validated by Permission Program
+    /// CHECK: Permit Prog
     #[account(mut)]
     pub puzzle_board_permission: UncheckedAccount<'info>,
 
-    /// CHECK: Validated by Permission Program
+    /// CHECK: Permit Prog
     #[account(mut)]
     pub puzzle_stats_permission: UncheckedAccount<'info>,
 
-    /// CHECK: The MagicBlock Permission Program ID
+    /// CHECK: MB Permit Prog
     pub permission_program: UncheckedAccount<'info>,
 
-    /// CHECK: The MagicBlock Delegation Program
+    /// CHECK: MB Deleg Prog
     pub delegation_program: UncheckedAccount<'info>,
 
-    // === Board Delegation Derivations ===
-    /// CHECK: Delegation buffer (Derived by client or SDK)
+    /// CHECK: Deleg buf
     #[account(mut)]
     pub board_delegation_buffer: UncheckedAccount<'info>,
-    /// CHECK: Delegation record (Derived by client or SDK)
+    /// CHECK: Deleg rec
     #[account(mut)]
     pub board_delegation_record: UncheckedAccount<'info>,
-    /// CHECK: Delegation metadata (Derived by client or SDK)
+    /// CHECK: Deleg meta
     #[account(mut)]
     pub board_delegation_metadata: UncheckedAccount<'info>,
 
-    // === Stats Delegation Derivations ===
-    /// CHECK: Delegation buffer (Derived by client or SDK)
+    /// CHECK: Deleg buf
     #[account(mut)]
     pub stats_delegation_buffer: UncheckedAccount<'info>,
-    /// CHECK: Delegation record (Derived by client or SDK)
+    /// CHECK: Deleg rec
     #[account(mut)]
     pub stats_delegation_record: UncheckedAccount<'info>,
-    /// CHECK: Delegation metadata (Derived by client or SDK)
+    /// CHECK: Deleg meta
     #[account(mut)]
     pub stats_delegation_metadata: UncheckedAccount<'info>,
 
-    /// CHECK: The MagicBlock Ephemeral Rollup Validator (TEE)
+    /// CHECK: TEE Val
     pub validator: UncheckedAccount<'info>,
 
     pub system_program: Program<'info, System>,
@@ -75,7 +73,6 @@ pub fn handle_delegate_puzzle_permissions(ctx: Context<DelegatePuzzlePermissions
     let puzzles_started = ctx.accounts.player.puzzles_started_nonce.saturating_sub(1);
     let puzzles_started_bytes = puzzles_started.to_le_bytes();
     
-    // --- Delegate Board Permission ---
     let board_seeds = &[
         b"puzzle_board",
         ctx.accounts.player.to_account_info().key.as_ref(),
@@ -103,7 +100,6 @@ pub fn handle_delegate_puzzle_permissions(ctx: Context<DelegatePuzzlePermissions
         .validator(Some(&ctx.accounts.validator))
         .invoke_signed(&[signer_seeds_board])?;
 
-    // --- Delegate Stats Permission ---
     let stats_seeds = &[
         b"puzzle_stats",
         ctx.accounts.player.to_account_info().key.as_ref(),

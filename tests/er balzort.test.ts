@@ -27,13 +27,13 @@ import * as nacl from "tweetnacl";
 
 const SEED_GAME = "game";
 const SEED_PLAYER = "player";
-const TEE_URL = "https://tee.magicblock.app";
-const TEE_WS_URL = "wss://tee.magicblock.app";
+const TEE_URL = "https://devnet-tee.magicblock.app";
+const TEE_WS_URL = "wss://devnet-tee.magicblock.app";
 const ephemeralRpcEndpoint = TEE_URL;
 const DEVNET_URL = "https://api.devnet.solana.com";
 
 const TEE_VALIDATOR = new PublicKey(
-  "FnE6VJT5QNZdedZPnCoLsARgBwoE6DeJNjBs2H1gySXA",
+  "MTEWGuqxUpYZGFJQcp8tLN7x5v9BSeoFHYWQQ3n3xzo",
 );
 
 const VRF_ORACLE_QUEUE = new PublicKey(
@@ -237,6 +237,7 @@ describe("Balzort devnet E2E test", () => {
       await l1Program.methods
         .initPuzzle(4, 4, 1)
         .accountsPartial({
+          payer: sessionKeypair.publicKey,
           signer: sessionKeypair.publicKey,
           player: playerPda,
           game: gamePda,

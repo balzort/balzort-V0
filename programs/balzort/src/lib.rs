@@ -64,7 +64,6 @@ pub mod balzort {
         instructions::puzzle::abandon_puzzle::handle_abandon_puzzle(ctx)
     }
 
-    // --- ER Delegation and Permissions ---
     pub fn create_puzzle_permissions(ctx: Context<CreatePuzzlePermissions>) -> Result<()> {
         instructions::puzzle::create_puzzle_permissions::handle_create_puzzle_permissions(ctx)
     }
@@ -95,19 +94,12 @@ pub mod balzort {
     ) -> Result<()> {
         instructions::tournament::create_tournament::handle_create_tournament(ctx, params)
     }
-    pub fn join_tournament(ctx: Context<JoinTournament>) -> Result<()> {
-        instructions::tournament::join_tournament::handle_join_tournament(ctx)
+    pub fn join_tournament(ctx: Context<JoinTournament>, amount: u64) -> Result<()> {
+        instructions::tournament::join_tournament::handle_join_tournament(ctx, amount)
     }
-    pub fn record_tournament_result(
-        ctx: Context<RecordTournamentResult>,
-        elapsed_secs: u64,
-        move_count: u32,
-    ) -> Result<()> {
-        instructions::tournament::record_and_close_claim::record_result_handler(
-            ctx,
-            elapsed_secs,
-            move_count,
-        )
+
+    pub fn record_tournament_result(ctx: Context<RecordTournamentResult>) -> Result<()> {
+        instructions::tournament::record_and_close_claim::record_result_handler(ctx)
     }
     pub fn close_tournament(ctx: Context<CloseTournament>) -> Result<()> {
         instructions::tournament::record_and_close_claim::close_handler(ctx)
@@ -116,6 +108,3 @@ pub mod balzort {
         instructions::tournament::record_and_close_claim::claim_prize_handler(ctx)
     }
 }
-
-
-

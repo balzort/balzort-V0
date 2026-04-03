@@ -36,6 +36,12 @@ pub fn handle_apply_move(ctx: Context<ApplyMove>, from_tube: u8, to_tube: u8) ->
 
     stats.move_count = stats.move_count.saturating_add(1);
 
+    // Start the timer on the FIRST move — ensures both started_at and
+    // completed_at use the TEE clock (avoids L1↔TEE clock drift).
+    if stats.started_at == 0 {
+        stats.started_at = clock.unix_timestamp;
+    }
+
     if is_solved(board) {
         stats.is_solved = true;
         stats.completed_at = clock.unix_timestamp;

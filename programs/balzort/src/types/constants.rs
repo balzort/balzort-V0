@@ -1,8 +1,8 @@
-// ─── Seeds (PDAs) ──────────────────────────────────────────────────────────────
 pub const SEED_GAME: &[u8] = b"game";
 pub const SEED_PLAYER: &[u8] = b"player";
 pub const SEED_TOURNAMENT: &[u8] = b"tournament";
 pub const SEED_TOURNAMENT_ENTRY: &[u8] = b"tournament_entry";
+pub const SEED_TOURNAMENT_VAULT: &[u8] = b"tournament_vault"; 
 pub const SEED_PUZZLE_BOARD: &[u8] = b"puzzle_board";
 pub const SEED_PUZZLE_STATS: &[u8] = b"puzzle_stats";
 

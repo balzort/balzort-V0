@@ -96,7 +96,7 @@ pub struct InitPuzzle<'info> {
     )]
     pub puzzle_stats: Account<'info, PuzzleStats>,
 
-    /// CHECK: VRF oracle queue -- #[vrf] injects vrf_program/identity/slot_hashes automatically.
+    /// CHECK: VRF oracle queue
     #[account(mut, address = ephemeral_vrf_sdk::consts::DEFAULT_QUEUE)]
     pub oracle_queue: AccountInfo<'info>,
 

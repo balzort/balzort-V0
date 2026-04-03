@@ -21,23 +21,23 @@ pub struct CreatePuzzlePermissions<'info> {
     #[account(seeds=[SEED_GAME], bump=game.bump)]
     pub game: Account<'info, Game>,
 
-    /// CHECK: The PuzzleBoard we want to protect
+    /// CHECK: PuzzleBoard
     #[account(mut)]
     pub puzzle_board: UncheckedAccount<'info>,
 
-    /// CHECK: The PuzzleStats we want to protect 
+    /// CHECK: PuzzleStats
     #[account(mut)]
     pub puzzle_stats: UncheckedAccount<'info>,
 
-    /// CHECK: Validated by Permission Program
+    /// CHECK: Permit Prog
     #[account(mut)]
     pub puzzle_board_permission: UncheckedAccount<'info>,
 
-    /// CHECK: Validated by Permission Program
+    /// CHECK: Permit Prog
     #[account(mut)]
     pub puzzle_stats_permission: UncheckedAccount<'info>,
 
-    /// CHECK: The MagicBlock Permission Program ID
+    /// CHECK: MB Permit Prog
     pub permission_program: UncheckedAccount<'info>,
 
     pub system_program: Program<'info, System>,
@@ -45,7 +45,6 @@ pub struct CreatePuzzlePermissions<'info> {
 
 pub fn handle_create_puzzle_permissions(ctx: Context<CreatePuzzlePermissions>) -> Result<()> {
     
-    // The player's active session key acts as the authority. If none, wallet acts as authority.
     let authority = ctx.accounts.player.session_key.unwrap_or(ctx.accounts.player.wallet);
 
     let member = Member {
@@ -59,7 +58,6 @@ pub fn handle_create_puzzle_permissions(ctx: Context<CreatePuzzlePermissions>) -
     let puzzles_started = ctx.accounts.player.puzzles_started_nonce.saturating_sub(1);
     let puzzles_started_bytes = puzzles_started.to_le_bytes();
     
-    // --- Puzzle Board Permission ---
     let board_seeds = &[
         b"puzzle_board",
         ctx.accounts.player.to_account_info().key.as_ref(),
@@ -81,7 +79,6 @@ pub fn handle_create_puzzle_permissions(ctx: Context<CreatePuzzlePermissions>) -
         .args(args.clone())
         .invoke_signed(&[signer_seeds_board])?;
 
-    // --- Puzzle Stats Permission ---
     let stats_seeds = &[
         b"puzzle_stats",
         ctx.accounts.player.to_account_info().key.as_ref(),

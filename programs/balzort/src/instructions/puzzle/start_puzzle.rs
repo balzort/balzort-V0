@@ -103,7 +103,7 @@ pub fn handle_start_puzzle(ctx: Context<StartPuzzle>) -> Result<()> {
     stats.status = PuzzleStatus::Started as u8;
     stats.move_count = 0;
     stats.undo_count = 0;
-    stats.started_at = clock.unix_timestamp;
+    stats.started_at = 0;  // will be set on first move (so both timestamps use the TEE clock)
     stats.completed_at = 0;
     stats.is_solved = false;
     stats.final_score = 0;

@@ -23,15 +23,15 @@ pub struct DelegatePuzzle<'info> {
     #[account(seeds=[SEED_GAME], bump=game.bump)]
     pub game: Account<'info, Game>,
 
-    /// CHECK: The PuzzleBoard we want to delegate
+    /// CHECK: PuzzleBoard
     #[account(mut, del)]
     pub puzzle_board: AccountInfo<'info>,
 
-    /// CHECK: The PuzzleStats we want to delegate 
+    /// CHECK: PuzzleStats
     #[account(mut, del)]
     pub puzzle_stats: AccountInfo<'info>,
 
-    /// CHECK: The MagicBlock Ephemeral Rollup Validator (TEE)
+    /// CHECK: TEE Val
     pub validator: UncheckedAccount<'info>,
 }
 
@@ -42,7 +42,6 @@ pub fn handle_delegate_puzzle(ctx: Context<DelegatePuzzle>) -> Result<()> {
     let puzzles_started_bytes = puzzles_started.to_le_bytes();
     
 
-    // --- Delegate Board ---
     let board_seeds = &[
         b"puzzle_board",
         authority.as_ref(),
@@ -58,7 +57,6 @@ pub fn handle_delegate_puzzle(ctx: Context<DelegatePuzzle>) -> Result<()> {
         config_board
     )?;
 
-    // --- Delegate Stats ---
     let stats_seeds = &[
         b"puzzle_stats",
         authority.as_ref(),
@@ -94,11 +92,11 @@ pub struct UndelegatePuzzle<'info> {
     #[account(seeds=[SEED_GAME], bump=game.bump)]
     pub game: Account<'info, Game>,
 
-    /// CHECK: PuzzleBoard component PDA
+    /// CHECK: PB PDA
     #[account(mut)]
     pub puzzle_board: UncheckedAccount<'info>,
 
-    /// CHECK: PuzzleStats component PDA
+    /// CHECK: PS PDA
     #[account(mut)]
     pub puzzle_stats: UncheckedAccount<'info>,
 }
